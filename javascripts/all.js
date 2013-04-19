@@ -12,8 +12,8 @@
   createGeometry = function(data) {
     var angle, color, colors, d2r, geometry, i, j, material, nParticles, p, particleSystem, positions, r, renderer, scene, _i, _len;
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(800, 600);
-    document.body.appendChild(renderer.domElement);
+    renderer.setSize(500, 500);
+    $("#canvas")[0].appendChild(renderer.domElement);
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x111111, 20, 45);
     nParticles = data.length;
@@ -42,7 +42,7 @@
       positions[i + 1] = r * Math.sin(p.y * d2r);
       positions[i + 2] = r * Math.cos(p.x * d2r) * Math.cos(p.y * d2r);
       color.setRGB(p.r, p.g, p.b);
-      color.offsetHSL(0, 0.5, 0);
+      color.offsetHSL(0, 0.65, 0);
       colors[i] = color.r;
       colors[i + 1] = color.g;
       colors[i + 2] = color.b;
@@ -58,7 +58,7 @@
       var camera, radius;
       angle += 0.01;
       radius = 30;
-      camera = new THREE.PerspectiveCamera(35, 800 / 600, 0.1, 10000);
+      camera = new THREE.PerspectiveCamera(35, 500 / 500, 0.1, 10000);
       camera.position.set(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
       camera.lookAt(scene.position);
       return renderer.render(scene, camera);

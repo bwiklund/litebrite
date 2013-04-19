@@ -1,16 +1,49 @@
 /* line 1, all.css.sass */
 body {
-  background: #111111;
+  background: black;
   color: #555555;
   box-sizing: border-box;
-  margin: 20px; }
+  margin: 20px;
+  font-family: Helvetica, sans-serif; }
 
-/* line 7, all.css.sass */
+/* line 8, all.css.sass */
 * {
   margin: 0;
   padding: 0; }
 
-/* line 11, all.css.sass */
+/* line 12, all.css.sass */
+h1 {
+  font-weight: 100;
+  color: #bbbbbb;
+  text-align: center; }
+
+/* line 17, all.css.sass */
+h2 {
+  font-weight: 100;
+  color: #777777;
+  text-align: center;
+  width: 400px;
+  margin: 0 auto; }
+
+/* line 24, all.css.sass */
+h3 {
+  font-weight: 100;
+  text-align: center; }
+  /* line 27, all.css.sass */
+  h3 a {
+    color: #555555;
+    text-decoration: none; }
+    /* line 31, all.css.sass */
+    h3 a:hover {
+      text-decoration: underline; }
+
+/* line 34, all.css.sass */
 canvas {
   display: block;
   margin: 0 auto; }
+
+/* line 38, all.css.sass */
+#canvas {
+  margin: 50px auto;
+  height: 500px;
+  width: 500px; }
