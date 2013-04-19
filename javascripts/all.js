@@ -5,7 +5,9 @@
     type: 'get',
     url: 'data/points.json',
     success: function(data) {
-      return createGeometry(data);
+      $("#canvas p").text("Creating point cloud");
+      createGeometry(data);
+      return $("#canvas p").hide();
     }
   });
 
