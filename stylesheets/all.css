@@ -1,0 +1,16 @@
+/* line 1, all.css.sass */
+body {
+  background: #111111;
+  color: #555555;
+  box-sizing: border-box;
+  margin: 20px; }
+
+/* line 7, all.css.sass */
+* {
+  margin: 0;
+  padding: 0; }
+
+/* line 11, all.css.sass */
+canvas {
+  display: block;
+  margin: 0 auto; }
