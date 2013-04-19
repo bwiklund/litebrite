@@ -15,7 +15,7 @@ createGeometry = (data) ->
   renderer.setSize 800, 600
   document.body.appendChild renderer.domElement
   scene = new THREE.Scene()
-
+  scene.fog = new THREE.Fog( 0x111111, 20, 45 );
   # geometry = new THREE.CubeGeometry(5, 5, 5)
   # material = new THREE.MeshLambertMaterial(color: 0xFF0000)
   # mesh = new THREE.Mesh(geometry, material)
@@ -43,7 +43,7 @@ createGeometry = (data) ->
   colors = geometry.attributes.color.array
 
   color = new THREE.Color()
-  r = 5
+  r = 8
   d2r = Math.PI / 180
   for p,j in data
 
