@@ -1,8 +1,4 @@
-floormat
-========
+litebrite
+===
 
-An empty middleman project, set up with my favorites. Saves five minutes of setup.
-
-- Coffeescript
-- Slim
-- Sass
+a 3d globe, showing the average color of geotagged pictures scraped off the web
