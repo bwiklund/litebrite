@@ -49,18 +49,19 @@ createGeometry = (data) ->
 
     i = j*3
 
-    positions[ i ]     = r*Math.sin(p.x * d2r)
+    positions[ i ]     = r*Math.sin(p.x * d2r) * Math.cos(p.y * d2r)
     positions[ i + 1 ] = r*Math.sin(p.y * d2r)
-    positions[ i + 2 ] = r*Math.cos(p.x * d2r)
+    positions[ i + 2 ] = r*Math.cos(p.x * d2r) * Math.cos(p.y * d2r)
 
     color.setRGB( p.r, p.g, p.b )
+    color.offsetHSL(0,0.5,0)
 
     colors[ i ]     = color.r;
     colors[ i + 1 ] = color.g;
     colors[ i + 2 ] = color.b;
 
 
-  material = new THREE.ParticleBasicMaterial( { size: 0.2, vertexColors: true } );
+  material = new THREE.ParticleBasicMaterial( { size: 0.3, vertexColors: true } );
 
   particleSystem = new THREE.ParticleSystem( geometry, material )
 
