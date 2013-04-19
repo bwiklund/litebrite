@@ -65,7 +65,7 @@ class LiteBrite
 
     render = ->
       now = new Date().getTime()
-      angle += 0.0005 * (now-lastFrame)
+      angle += 0.0003 * (now-lastFrame)
       radius = 30
       camera = new THREE.PerspectiveCamera(35, 500 / 500, 0.1, 10000) # Far plane
       camera.position.set Math.sin(angle)*radius, 0, Math.cos(angle)*radius
