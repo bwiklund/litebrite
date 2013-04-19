@@ -20,7 +20,7 @@
     }
 
     LiteBrite.prototype.createGeometry = function(data) {
-      var angle, color, colors, d2r, geometry, i, j, material, nParticles, p, particleSystem, positions, r, renderer, scene, _i, _len;
+      var angle, color, colors, d2r, geometry, i, j, lastFrame, material, nParticles, p, particleSystem, positions, r, render, renderer, scene, _i, _len;
       renderer = new THREE.WebGLRenderer();
       renderer.setSize(500, 500);
       $("#canvas")[0].appendChild(renderer.domElement);
@@ -64,15 +64,20 @@
       particleSystem = new THREE.ParticleSystem(geometry, material);
       scene.add(particleSystem);
       angle = 0;
-      return setInterval(function() {
-        var camera, radius;
-        angle += 0.01;
+      lastFrame = new Date().getTime();
+      render = function() {
+        var camera, now, radius;
+        now = new Date().getTime();
+        angle += 0.0005 * (now - lastFrame);
         radius = 30;
         camera = new THREE.PerspectiveCamera(35, 500 / 500, 0.1, 10000);
         camera.position.set(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
         camera.lookAt(scene.position);
-        return renderer.render(scene, camera);
-      }, 1000 / 60);
+        renderer.render(scene, camera);
+        lastFrame = now;
+        return setTimeout(render, 1000 / 60);
+      };
+      return render();
     };
 
     return LiteBrite;
