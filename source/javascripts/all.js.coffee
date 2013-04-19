@@ -1,4 +1,5 @@
 # hello
+#= require ./3d
 
 $.ajax
   type: 'get'
