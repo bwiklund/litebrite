@@ -4,7 +4,9 @@ $.ajax
   type: 'get'
   url: 'data/points.json'
   success: (data) ->
+    $("#canvas p").text("Creating point cloud")
     createGeometry(data)
+    $("#canvas p").hide()
 
 
 createGeometry = (data) ->
