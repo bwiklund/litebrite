@@ -72,7 +72,7 @@ class LiteBrite
       camera.lookAt scene.position
       renderer.render scene, camera
       lastFrame = now
-      setTimeout render, 1000/60
+      requestAnimationFrame render
     
     render()
 
