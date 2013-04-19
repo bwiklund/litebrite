@@ -15,12 +15,6 @@ createGeometry = (data) ->
   renderer.setSize 800, 600
   document.body.appendChild renderer.domElement
   scene = new THREE.Scene()
-  # Field of view
-  # Aspect ratio
-  # Near plane
-  camera = new THREE.PerspectiveCamera(35, 800 / 600, 0.1, 10000) # Far plane
-  camera.position.set -15, 10, 10
-  camera.lookAt scene.position
 
   # geometry = new THREE.CubeGeometry(5, 5, 5)
   # material = new THREE.MeshLambertMaterial(color: 0xFF0000)
@@ -45,13 +39,13 @@ createGeometry = (data) ->
   # now create the individual particles
   for p in data
     
-    radius = 5
+    r = 5
     d2r = Math.PI / 180
     # create a particle with random
     # position values, -250 -> 250
-    pX = Math.sin(p.x * d2r)
-    pY = Math.sin(p.y * d2r)
-    pZ = Math.cos(p.x * d2r)
+    pX = r*Math.sin(p.x * d2r)
+    pY = r*Math.sin(p.y * d2r)
+    pZ = r*Math.cos(p.x * d2r)
     particle = new THREE.Vector3(pX, pY, pZ)
     # add it to the geometry
     particles.vertices.push particle
@@ -68,5 +62,13 @@ createGeometry = (data) ->
 
 
 
+  angle = 0
 
-  renderer.render scene, camera
+  setInterval ->
+    angle += 0.01
+    radius = 30
+    camera = new THREE.PerspectiveCamera(35, 800 / 600, 0.1, 10000) # Far plane
+    camera.position.set Math.sin(angle)*radius, 0, Math.cos(angle)*radius
+    camera.lookAt scene.position
+    renderer.render scene, camera
+  , 1000/60
