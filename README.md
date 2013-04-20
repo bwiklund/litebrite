@@ -72,4 +72,6 @@ To do:
 
 Have fun, contributions very welcome.
 
+Check out the [source and demo](https://github.com/bwiklund/litebrite/tree/master/source/javascripts) for other options
+
 [See it in action](http://bwiklund.github.com/litebrite)
