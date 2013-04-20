@@ -40,15 +40,20 @@ h3 {
 /* line 34, all.css.sass */
 canvas {
   display: block;
-  margin: 0 auto; }
+  margin: 0 auto;
+  background: black;
+  position: absolute; }
 
-/* line 38, all.css.sass */
+/* line 40, all.css.sass */
 #canvas {
   margin: 50px auto;
   height: 500px;
-  width: 500px; }
-  /* line 43, all.css.sass */
+  width: 500px;
+  position: relative; }
+  /* line 46, all.css.sass */
   #canvas p {
-    padding-top: 240px;
+    position: absolute;
+    width: 100%;
+    top: 240px;
     text-align: center;
     color: #222222; }
