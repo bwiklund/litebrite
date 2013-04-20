@@ -3,7 +3,7 @@
 litebrite
 ===
 
-A pointcloud rendering toy. Built with threejs, webgl, and a sprinkle of jquery.
+A pointcloud rendering toy. Built in coffeescript, with threejs, webgl, and a sprinkle of jquery.
 
 As it's using buffered geometry, and can handle quite a few particles at once.
 
