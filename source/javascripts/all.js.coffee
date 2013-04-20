@@ -1,10 +1,10 @@
 # hello
 
-class LiteBrite
-  constructor: (arg) ->
-    if arg.constructor == Array
-      @addPoints(arg)
 
+class LiteBrite
+
+  constructor: (@settings) ->
+    @addPoints()
 
   initThreeJS: ->
     @renderer = new THREE.WebGLRenderer()
@@ -14,40 +14,41 @@ class LiteBrite
     @scene.fog = new THREE.Fog( 0x111111, 20, 45 );
   
 
-  addPoints: (data) =>
-
-    @initThreeJS()
-
-    nParticles = data.length
-
+  generateVertexBuffer: (len) ->
     geometry = new THREE.BufferGeometry()
     geometry.attributes =
       position:
         itemSize: 3
-        array: new Float32Array(nParticles * 3)
-        numItems: nParticles * 3
+        array: new Float32Array(len * 3)
+        numItems: len * 3
 
       color:
         itemSize: 3
-        array: new Float32Array(nParticles * 3)
-        numItems: nParticles * 3
+        array: new Float32Array(len * 3)
+        numItems: len * 3
+    geometry
 
-    positions = geometry.attributes.position.array
-    colors = geometry.attributes.color.array
+
+  addPoints: =>
+
+    @initThreeJS()
 
     color = new THREE.Color()
 
-    r = 8
-    d2r = Math.PI / 180
+    geometry = @generateVertexBuffer @settings.data.length
+    positions = geometry.attributes.position.array
+    colors = geometry.attributes.color.array
 
-    for p,j in data
+    for p,j in @settings.data
       i = j*3
 
-      positions[ i ]     = r*Math.sin(p.x * d2r) * Math.cos(p.y * d2r)
-      positions[ i + 1 ] = r*Math.sin(p.y * d2r)
-      positions[ i + 2 ] = r*Math.cos(p.x * d2r) * Math.cos(p.y * d2r)
+      p2 = @settings.transform p
 
-      color.setRGB( p.r, p.g, p.b )
+      positions[ i ]     = p2.x
+      positions[ i + 1 ] = p2.y
+      positions[ i + 2 ] = p2.z
+
+      color.setRGB( p2.r, p2.g, p2.b )
       color.offsetHSL(0,0.65,0)
 
       colors[ i ]     = color.r;
@@ -57,7 +58,6 @@ class LiteBrite
     material = new THREE.ParticleBasicMaterial( { size: 0.3, vertexColors: true } );
     particleSystem = new THREE.ParticleSystem( geometry, material )
     @scene.add( particleSystem )
-
 
     angle = 0
     lastFrame = new Date().getTime()
@@ -76,12 +76,25 @@ class LiteBrite
     render()
 
 
+  @globeTransform: (p) ->
+    r = 8
+    d2r = Math.PI / 180
+    {} =
+      x: r*Math.sin(p.x * d2r) * Math.cos(p.y * d2r)
+      y: r*Math.sin(p.y * d2r)
+      z: r*Math.cos(p.x * d2r) * Math.cos(p.y * d2r)
+      r: p.r
+      g: p.g
+      b: p.b
+
+
+
 $ ->
   $.ajax
     type: 'get'
     url: 'data/points.json'
     success: (data) =>
       $("#canvas p").text("Creating point cloud")
-      new LiteBrite(data)
+      new LiteBrite data: data, transform: LiteBrite.globeTransform
       $("#canvas p").hide()
 
