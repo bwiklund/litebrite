@@ -1,17 +1,13 @@
 # hello
 
 class LiteBrite
-  constructor: ->
-    $.ajax
-      type: 'get'
-      url: 'data/points.json'
-      success: (data) =>
-        $("#canvas p").text("Creating point cloud")
-        @createGeometry(data)
-        $("#canvas p").hide()
+  constructor: (arg) ->
+    if arg.constructor == Array
+      @addPoints(arg)
 
+  
 
-  createGeometry: (data) =>
+  addPoints: (data) =>
 
     renderer = new THREE.WebGLRenderer()
     renderer.setSize 500, 500
@@ -77,5 +73,12 @@ class LiteBrite
     render()
 
 
-new LiteBrite
+$ ->
+  $.ajax
+    type: 'get'
+    url: 'data/points.json'
+    success: (data) =>
+      $("#canvas p").text("Creating point cloud")
+      new LiteBrite(data)
+      $("#canvas p").hide()
 
