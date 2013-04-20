@@ -2,26 +2,33 @@ body
   background: #000
   color: #555
   box-sizing: border-box
-  margin: 20px
+  margin: 20px 20px 100px 20px
   font-family: Helvetica, sans-serif
 
 *
   margin: 0
   padding: 0
 
-h1
+.neato
   font-weight: 100
-  color: #bbb 
+
+h1, h2, h3, h4
+  @extend .neato
   text-align: center
+  width: 450px
+  margin: 20px auto 
+
+h1
+  color: #bbb 
 
 h2
-  font-weight: 100
   color: #777 
-  text-align: center 
-  width: 400px
-  margin: 0 auto 
 
 h3
+  color: #444 
+
+
+h4
   font-weight: 100
   text-align: center 
   a
