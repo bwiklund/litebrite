@@ -81,7 +81,7 @@
       return render();
     };
 
-    LiteBrite.globeTransform = function(p) {
+    LiteBrite.spherify = function(p) {
       var d2r, r;
       r = 8;
       d2r = Math.PI / 180;
@@ -123,7 +123,7 @@
         $("#canvas p").text("Creating point cloud");
         new LiteBrite({
           data: data,
-          transform: [LiteBrite.globeTransform, LiteBrite.saturate]
+          transform: [LiteBrite.spherify, LiteBrite.saturate]
         });
         return $("#canvas p").hide();
       }
