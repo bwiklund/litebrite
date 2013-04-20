@@ -14,6 +14,7 @@
       height:            500
       fog:               null
       cameraRotateSpeed: 0.0003
+      element:           document.body
 
     @settings = $.extend true, {}, defaults, settings
 
@@ -23,7 +24,7 @@
   initThreeJS: ->
     @renderer = new THREE.WebGLRenderer(antialias: true)
     @renderer.setSize @settings.width, @settings.height
-    $("#canvas")[0].appendChild @renderer.domElement
+    @settings.element.appendChild @renderer.domElement
     @scene = new THREE.Scene()
     @scene.fog = @settings.fog
 
