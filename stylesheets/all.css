@@ -3,7 +3,7 @@ body {
   background: black;
   color: #555555;
   box-sizing: border-box;
-  margin: 20px;
+  margin: 20px 20px 100px 20px;
   font-family: Helvetica, sans-serif; }
 
 /* line 8, all.css.sass */
@@ -12,45 +12,53 @@ body {
   padding: 0; }
 
 /* line 12, all.css.sass */
-h1 {
-  font-weight: 100;
-  color: #bbbbbb;
-  text-align: center; }
+.neato, h1, h2, h3, h4 {
+  font-weight: 100; }
 
-/* line 17, all.css.sass */
-h2 {
-  font-weight: 100;
-  color: #777777;
+/* line 15, all.css.sass */
+h1, h2, h3, h4 {
   text-align: center;
-  width: 400px;
-  margin: 0 auto; }
+  width: 450px;
+  margin: 20px auto; }
+
+/* line 21, all.css.sass */
+h1 {
+  color: #bbbbbb; }
 
 /* line 24, all.css.sass */
+h2 {
+  color: #777777; }
+
+/* line 27, all.css.sass */
 h3 {
+  color: #444444; }
+
+/* line 31, all.css.sass */
+h4 {
   font-weight: 100;
   text-align: center; }
-  /* line 27, all.css.sass */
-  h3 a {
+  /* line 34, all.css.sass */
+  h4 a {
     color: #555555;
     text-decoration: none; }
-    /* line 31, all.css.sass */
-    h3 a:hover {
+    /* line 38, all.css.sass */
+    h4 a:hover {
       text-decoration: underline; }
 
-/* line 34, all.css.sass */
+/* line 41, all.css.sass */
 canvas {
   display: block;
   margin: 0 auto;
   background: black;
   position: absolute; }
 
-/* line 40, all.css.sass */
+/* line 47, all.css.sass */
 #canvas {
   margin: 50px auto;
   height: 500px;
   width: 500px;
   position: relative; }
-  /* line 46, all.css.sass */
+  /* line 53, all.css.sass */
   #canvas p {
     position: absolute;
     width: 100%;
