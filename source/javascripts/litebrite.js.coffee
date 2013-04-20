@@ -5,14 +5,18 @@
 
 
   constructor: (settings) ->
-    @settings =
-      data:           settings.data || []
-      transform:      settings.transform || []
-      cameraDistance: settings.cameraDistance || 30
-      size:           settings.size || 0.15
-      width:          settings.width || 500
-      height:         settings.height || 500
-      fog:            settings.fog || null
+    defaults =
+      data:           []
+      transform:      []
+      cameraDistance: 30
+      size:           0.15
+      width:          500
+      height:         500
+      fog:            null
+      cameraRotateSpeed: 0.0003
+
+    @settings = $.extend true, {}, defaults, settings
+    
     @addPoints()
 
 
@@ -62,7 +66,7 @@
 
     render = =>
       now = new Date().getTime()
-      angle += 0.0003 * (now-lastFrame)
+      angle += @settings.cameraRotateSpeed * (now-lastFrame)
       radius = @settings.cameraDistance
       camera = new THREE.PerspectiveCamera(35, @settings.width / @settings.height, 0.1, 10000) # Far plane
       camera.position.set Math.sin(angle)*radius, 0, Math.cos(angle)*radius
