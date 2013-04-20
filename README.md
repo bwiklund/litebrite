@@ -3,11 +3,12 @@
 litebrite
 ===
 
-a 3d webgl globe, showing the average color of geotagged pictures scraped off the web
+A pointcloud rendering toy. Built with threejs, webgl, and a sprinkle of jquery.
 
-built with threejs, webgl, and a sprinkle of jquery
+As it's using buffered geometry, and can handle quite a few particles at once.
 
 Usage example, from the globe demo:
+===
 
 The raw data:
 ```
@@ -26,8 +27,11 @@ The raw data:
 Setup:
 ```
 new LiteBrite 
-  data: data, 
-  transform: [ LiteBrite.spherify, LiteBrite.saturate ]
+  data: data
+  transform: [
+    LiteBrite.spherify
+    (p) -> LiteBrite.offsetHSL(p,0,0.65,0)
+  ]
 ```
 
 Note that we're chaining two 'transforms' together:
@@ -50,6 +54,19 @@ fooTransform = (p) ->
     g: p.g
     b: p.b
 ```
+
+If your data is already in the format you want, you can skip transforms alltogether:
+
+```
+new LiteBrite data: data
+```
+
+To do:
+- Parameterize more stuff
+-- Camera position and motion
+-- Particle size
+- Updating data
+- Camera controls
 
 Have fun, contributions very welcome.
 
