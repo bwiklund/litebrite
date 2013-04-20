@@ -6,17 +6,17 @@
 
   constructor: (settings) ->
     defaults =
-      data:           []
-      transform:      []
-      cameraDistance: 30
-      size:           0.15
-      width:          500
-      height:         500
-      fog:            null
+      data:              []
+      transform:         []
+      cameraDistance:    30
+      size:              0.15
+      width:             500
+      height:            500
+      fog:               null
       cameraRotateSpeed: 0.0003
 
     @settings = $.extend true, {}, defaults, settings
-    
+
     @addPoints()
 
 
@@ -78,13 +78,27 @@
     render()
 
 
+
+
+  ### Transforms ###
+
+
+  @scale: (p,n) ->
+    {} =
+      x: p.x*n
+      y: p.y*n
+      z: p.z*n
+      r: p.r
+      g: p.g
+      b: p.b
+
+
   @spherify: (p) ->
-    r = 8
     d2r = Math.PI / 180
     {} =
-      x: r*Math.sin(p.x * d2r) * Math.cos(p.y * d2r)
-      y: r*Math.sin(p.y * d2r)
-      z: r*Math.cos(p.x * d2r) * Math.cos(p.y * d2r)
+      x: Math.sin(p.x * d2r) * Math.cos(p.y * d2r)
+      y: Math.sin(p.y * d2r)
+      z: Math.cos(p.x * d2r) * Math.cos(p.y * d2r)
       r: p.r
       g: p.g
       b: p.b
