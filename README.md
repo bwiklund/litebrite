@@ -7,6 +7,8 @@ A pointcloud rendering toy. Built in coffeescript, with threejs, webgl, and a sp
 
 As it's using buffered geometry, and can handle quite a few particles at once.
 
+[See it in action](http://bwiklund.github.com/litebrite)
+
 Usage example, from the globe demo:
 ===
 
