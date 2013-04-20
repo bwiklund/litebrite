@@ -66,7 +66,7 @@ class LiteBrite
     render()
 
 
-  @globeTransform: (p) ->
+  @spherify: (p) ->
     r = 8
     d2r = Math.PI / 180
     {} =
@@ -99,6 +99,6 @@ $ ->
     url: 'data/points.json'
     success: (data) =>
       $("#canvas p").text("Creating point cloud")
-      new LiteBrite data: data, transform: [LiteBrite.globeTransform, LiteBrite.saturate]
+      new LiteBrite data: data, transform: [LiteBrite.spherify, LiteBrite.saturate]
       $("#canvas p").hide()
 
