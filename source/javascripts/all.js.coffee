@@ -3,8 +3,10 @@
 
 class LiteBrite
 
+
   constructor: (@settings) ->
     @addPoints()
+
 
   initThreeJS: ->
     @renderer = new THREE.WebGLRenderer()
@@ -12,7 +14,7 @@ class LiteBrite
     $("#canvas")[0].appendChild @renderer.domElement
     @scene = new THREE.Scene()
     @scene.fog = new THREE.Fog( 0x111111, 20, 45 );
-  
+
 
   generateVertexBuffer: (len) ->
     geometry = new THREE.BufferGeometry()
@@ -29,7 +31,6 @@ class LiteBrite
 
 
   addPoints: =>
-
     @initThreeJS()
     geometry = @generateVertexBuffer @settings.data.length
     positions = geometry.attributes.position.array
