@@ -21,7 +21,6 @@ class LiteBrite
         itemSize: 3
         array: new Float32Array(len * 3)
         numItems: len * 3
-
       color:
         itemSize: 3
         array: new Float32Array(len * 3)
@@ -32,28 +31,21 @@ class LiteBrite
   addPoints: =>
 
     @initThreeJS()
-
-    color = new THREE.Color()
-
     geometry = @generateVertexBuffer @settings.data.length
     positions = geometry.attributes.position.array
     colors = geometry.attributes.color.array
 
+    color = new THREE.Color()
     for p,j in @settings.data
       i = j*3
 
       p2 = @settings.transform p
 
-      positions[ i ]     = p2.x
-      positions[ i + 1 ] = p2.y
-      positions[ i + 2 ] = p2.z
-
       color.setRGB( p2.r, p2.g, p2.b )
       color.offsetHSL(0,0.65,0)
 
-      colors[ i ]     = color.r;
-      colors[ i + 1 ] = color.g;
-      colors[ i + 2 ] = color.b;
+      positions[ i...i+3 ] = [p2.x,p2.y,p2.z]
+      colors[ i...i+3 ] = [color.r,color.g,color.b]
 
     material = new THREE.ParticleBasicMaterial( { size: 0.3, vertexColors: true } );
     particleSystem = new THREE.ParticleSystem( geometry, material )
