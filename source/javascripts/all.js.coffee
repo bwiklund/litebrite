@@ -4,16 +4,24 @@
 class LiteBrite
 
 
-  constructor: (@settings) ->
+  constructor: (settings) ->
+    @settings =
+      data:           settings.data || []
+      transform:      settings.transform || []
+      cameraDistance: settings.cameraDistance || 30
+      size:           settings.size || 0.15
+      width:          settings.width || 500
+      height:         settings.height || 500
+      fog:            settings.fog || null
     @addPoints()
 
 
   initThreeJS: ->
     @renderer = new THREE.WebGLRenderer(antialias: true)
-    @renderer.setSize 500, 500
+    @renderer.setSize @settings.width, @settings.height
     $("#canvas")[0].appendChild @renderer.domElement
     @scene = new THREE.Scene()
-    @scene.fog = new THREE.Fog( 0x111111, 20, 43 );
+    @scene.fog = @settings.fog
 
 
   generateVertexBuffer: (len) ->
@@ -45,7 +53,7 @@ class LiteBrite
       positions[ i*3...i*3+3 ] = [p2.x,p2.y,p2.z]
       colors[ i*3...i*3+3 ] = [p2.r,p2.g,p2.b]
 
-    material = new THREE.ParticleBasicMaterial( { size: 0.15, vertexColors: true } );
+    material = new THREE.ParticleBasicMaterial( { size: @settings.size, vertexColors: true } );
     particleSystem = new THREE.ParticleSystem( geometry, material )
     @scene.add( particleSystem )
 
@@ -55,8 +63,8 @@ class LiteBrite
     render = =>
       now = new Date().getTime()
       angle += 0.0003 * (now-lastFrame)
-      radius = 30
-      camera = new THREE.PerspectiveCamera(35, 500 / 500, 0.1, 10000) # Far plane
+      radius = @settings.cameraDistance
+      camera = new THREE.PerspectiveCamera(35, @settings.width / @settings.height, 0.1, 10000) # Far plane
       camera.position.set Math.sin(angle)*radius, 0, Math.cos(angle)*radius
       camera.lookAt @scene.position
       @renderer.render @scene, camera
@@ -78,10 +86,10 @@ class LiteBrite
       b: p.b
 
 
-  @saturate: (p) ->
+  @offsetHSL: (p,h,s,l) ->
     color = new THREE.Color()
     color.setRGB( p.r, p.g, p.b )
-    color.offsetHSL(0,0.65,0)
+    color.offsetHSL(h,s,l)
     {} =
       x: p.x
       y: p.y
@@ -91,14 +99,20 @@ class LiteBrite
       b: color.b
 
 
-
-
 $ ->
   $.ajax
     type: 'get'
     url: 'data/points.json'
     success: (data) =>
       $("#canvas p").text("Creating point cloud")
-      new LiteBrite data: data, transform: [LiteBrite.spherify, LiteBrite.saturate]
+      new LiteBrite 
+        data: data
+        transform: [
+          LiteBrite.spherify
+          (p) -> LiteBrite.offsetHSL(p,0,0.65,0)
+        ]
+        size: 0.15
+        cameraDistance: 30
+        fog: new THREE.Fog( 0x111111, 20, 43 );
       $("#canvas p").hide()
 
