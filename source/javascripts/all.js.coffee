@@ -9,11 +9,11 @@ class LiteBrite
 
 
   initThreeJS: ->
-    @renderer = new THREE.WebGLRenderer()
+    @renderer = new THREE.WebGLRenderer(antialias: true)
     @renderer.setSize 500, 500
     $("#canvas")[0].appendChild @renderer.domElement
     @scene = new THREE.Scene()
-    @scene.fog = new THREE.Fog( 0x111111, 20, 45 );
+    @scene.fog = new THREE.Fog( 0x111111, 20, 43 );
 
 
   generateVertexBuffer: (len) ->
@@ -36,19 +36,16 @@ class LiteBrite
     positions = geometry.attributes.position.array
     colors = geometry.attributes.color.array
 
-    color = new THREE.Color()
-    for p,j in @settings.data
-      i = j*3
+    
+    for p,i in @settings.data
+      p2 = p
+      for transform in @settings.transform
+        p2 = transform p2
 
-      p2 = @settings.transform p
+      positions[ i*3...i*3+3 ] = [p2.x,p2.y,p2.z]
+      colors[ i*3...i*3+3 ] = [p2.r,p2.g,p2.b]
 
-      color.setRGB( p2.r, p2.g, p2.b )
-      color.offsetHSL(0,0.65,0)
-
-      positions[ i...i+3 ] = [p2.x,p2.y,p2.z]
-      colors[ i...i+3 ] = [color.r,color.g,color.b]
-
-    material = new THREE.ParticleBasicMaterial( { size: 0.3, vertexColors: true } );
+    material = new THREE.ParticleBasicMaterial( { size: 0.15, vertexColors: true } );
     particleSystem = new THREE.ParticleSystem( geometry, material )
     @scene.add( particleSystem )
 
@@ -81,6 +78,20 @@ class LiteBrite
       b: p.b
 
 
+  @saturate: (p) ->
+    color = new THREE.Color()
+    color.setRGB( p.r, p.g, p.b )
+    color.offsetHSL(0,0.65,0)
+    {} =
+      x: p.x
+      y: p.y
+      z: p.z
+      r: color.r
+      g: color.g
+      b: color.b
+
+
+
 
 $ ->
   $.ajax
@@ -88,6 +99,6 @@ $ ->
     url: 'data/points.json'
     success: (data) =>
       $("#canvas p").text("Creating point cloud")
-      new LiteBrite data: data, transform: LiteBrite.globeTransform
+      new LiteBrite data: data, transform: [LiteBrite.globeTransform, LiteBrite.saturate]
       $("#canvas p").hide()
 
