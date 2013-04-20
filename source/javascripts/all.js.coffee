@@ -5,15 +5,18 @@ class LiteBrite
     if arg.constructor == Array
       @addPoints(arg)
 
+
+  initThreeJS: ->
+    @renderer = new THREE.WebGLRenderer()
+    @renderer.setSize 500, 500
+    $("#canvas")[0].appendChild @renderer.domElement
+    @scene = new THREE.Scene()
+    @scene.fog = new THREE.Fog( 0x111111, 20, 45 );
   
 
   addPoints: (data) =>
 
-    renderer = new THREE.WebGLRenderer()
-    renderer.setSize 500, 500
-    $("#canvas")[0].appendChild renderer.domElement
-    scene = new THREE.Scene()
-    scene.fog = new THREE.Fog( 0x111111, 20, 45 );
+    @initThreeJS()
 
     nParticles = data.length
 
@@ -53,20 +56,20 @@ class LiteBrite
 
     material = new THREE.ParticleBasicMaterial( { size: 0.3, vertexColors: true } );
     particleSystem = new THREE.ParticleSystem( geometry, material )
-    scene.add( particleSystem )
+    @scene.add( particleSystem )
 
 
     angle = 0
     lastFrame = new Date().getTime()
 
-    render = ->
+    render = =>
       now = new Date().getTime()
       angle += 0.0003 * (now-lastFrame)
       radius = 30
       camera = new THREE.PerspectiveCamera(35, 500 / 500, 0.1, 10000) # Far plane
       camera.position.set Math.sin(angle)*radius, 0, Math.cos(angle)*radius
-      camera.lookAt scene.position
-      renderer.render scene, camera
+      camera.lookAt @scene.position
+      @renderer.render @scene, camera
       lastFrame = now
       requestAnimationFrame render
     
