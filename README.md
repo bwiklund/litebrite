@@ -13,7 +13,7 @@ Usage example, from the globe demo:
 ===
 
 The raw data:
-```
+```coffeescript
 [
   {
     r: 0.440924
@@ -27,7 +27,7 @@ The raw data:
 ```
 
 Setup:
-```
+```coffeescript
 new LiteBrite
   data: data
   transform: [
@@ -48,7 +48,7 @@ You can write you own transforms easily. Each point is passed through each trans
 The format of their input and output is totally up to you, as long as they don't break each other, and the final output is in the right format (see next example)
 
 Here's a transform that does nothing at all:
-```
+```coffeescript
 fooTransform = (p) ->
   return
     x: p.x
@@ -61,7 +61,7 @@ fooTransform = (p) ->
 
 If your data is already in the format you want, you can skip transforms alltogether:
 
-```
+```coffeescript
 new LiteBrite data: data
 ```
 
