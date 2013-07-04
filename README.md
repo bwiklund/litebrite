@@ -1,4 +1,4 @@
-![Sample](https://raw.github.com/bwiklund/litebrite/master/source/images/globes.png)
+[<img src="https://raw.github.com/bwiklund/litebrite/master/source/images/globes.png">](http://bwiklund.github.com/litebrite)
 
 litebrite
 ===
